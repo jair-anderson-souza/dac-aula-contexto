@@ -19,15 +19,15 @@ public class CadastroPessoaService {
         this.reposistorio = reposistorio;
     }
 
-    public void salvar(Pessoa pessoa) {
-        reposistorio.salvar(pessoa);
+    public boolean salvar(Pessoa pessoa) {
+        return reposistorio.salvar(pessoa);
     }
 
     public List<Pessoa> todos() {
         return reposistorio.todos();
     }
 
-    public void excluir(Pessoa pessoa) {
-       reposistorio.excluir(pessoa);
+    public boolean excluir(Pessoa pessoa) {
+       return reposistorio.excluir(pessoa);
     }
 }
