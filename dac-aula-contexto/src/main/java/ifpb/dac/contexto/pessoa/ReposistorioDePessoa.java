@@ -45,4 +45,8 @@ public class ReposistorioDePessoa {
         em.getTransaction().commit();
         return true;
     }
+
+    public Pessoa find(int id) {
+        return em.find(Pessoa.class, id);
+    }
 }

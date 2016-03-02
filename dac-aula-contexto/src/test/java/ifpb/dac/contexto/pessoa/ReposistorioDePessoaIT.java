@@ -5,54 +5,30 @@
  */
 package ifpb.dac.contexto.pessoa;
 
-import java.io.FileInputStream;
-import java.util.List;
-import org.dbunit.DBTestCase;
-import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL;
-import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS;
-import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD;
-import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.dbunit.operation.DatabaseOperation;
+import ifpb.dac.contexto.pessoa.dbunit.DBUnitHelper;
+import static org.junit.Assert.assertNull;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  *
  * @author Anderson Souza
  */
-public class ReposistorioDePessoaIT extends DBTestCase {
-    
-    public ReposistorioDePessoaIT(String name) {
-        super(name);
-        System.setProperty(DBUNIT_DRIVER_CLASS, "com.mysql.jdbc.Driver");
-        System.setProperty(DBUNIT_USERNAME, "root");
-        System.setProperty(DBUNIT_PASSWORD, "root");
-        System.setProperty(DBUNIT_CONNECTION_URL, "jdbc:mysql://locahost:3306/dac_aula_exemplo");
-    }
+public class ReposistorioDePessoaIT {
 
-    @Override
-    protected IDataSet getDataSet() throws Exception {
-        return new FlatXmlDataSet(new FileInputStream(("data.xml")));
-    }
-        
-    @Override
-    protected DatabaseOperation getSetUpOperation() throws Exception {
-        return DatabaseOperation.CLEAN_INSERT;
-    }
+    @Before
+    public void before(){
+        DBUnitHelper helper = new DBUnitHelper();
+        helper.cleanInsert("/data.xml");
+    } 
     
     @Test
-   public void testSalvar(Pessoa pessoa) {
-       
-    }
-
-   @Test
-    public void testTodos() {
-    }
-
-    /* Usado para analisar o contexto de persistência */
-    @Test
-    public void testExcluir(Pessoa pessoa) {
+    public void find(){
+        ReposistorioDePessoa repo = new ReposistorioDePessoa();
+        Pessoa p = repo.find(4);
+        assertNull(p);
         
-    }   
+    }
+    
+ 
 }
